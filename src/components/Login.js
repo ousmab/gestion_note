@@ -15,6 +15,10 @@ class Login extends Component {
                     <div className="col-md-6"><img className="card-img-top mb-5 mb-md-0" src={login} alt="..." /></div>
                     <div className="col-md-6">
                         <form >
+                            <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                                Erreur de connexion vérifier vos identifiants (mot de passe et email)
+                                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
                             <div className="mb-3 row">
                                 <label for="staticEmail" className="col-sm-3 col-form-label">Email</label>
                                 <div className="col-sm-9">
