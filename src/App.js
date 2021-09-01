@@ -12,11 +12,11 @@ import Footer from './components/Footer'
 
   render() {
     return (
-      <div>
+      <>
         <Header />
         <Main />
         <Footer />
-      </div>
+      </>
     )
   }
 }
