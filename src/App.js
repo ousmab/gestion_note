@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Error from "./components/Error"
 import Login from './components/Login';
+import Dashboard from './components/Dashboard';
 
  class App extends Component {
 
@@ -17,10 +18,11 @@ import Login from './components/Login';
     return (
 
       <Router>
-            <Header />
+          
                 <Switch>
                     <Route exact path="/" component={Main} />
                     <Route exact path="/login" component={Login} />
+                    <Route exact path="/dashboard" component={Dashboard} />
                     <Route component={Error} />
                 </Switch>
             <Footer />

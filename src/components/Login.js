@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
 import login from "../images/login.png"
-
+import Header from './Header';
 
 class Login extends Component {
 
 
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             
+        }
+    }
+    
+
+    onSubmit=(event)=>{
+        event.preventDefault()
+        this.props.history.push('/dashboard')
+    }
 
     render() {
         
 
         return (
+            <>
+            <Header />
             <div className="container px-4 px-lg-5 my-5">
                 <div className="row gx-4 gx-lg-5 align-items-center">
                     <div className="col-md-6"><img className="card-img-top mb-5 mb-md-0" src={login} alt="..." /></div>
@@ -34,7 +49,7 @@ class Login extends Component {
 
                             <div className="mb-3 row">
                                 <div className="offset-3 col-sm-9">
-                                    <input type="submit" value="Connexion" className="btn btn-primary" />
+                                    <input type="submit" value="Connexion" onClick={this.onSubmit} className="btn btn-primary" />
 
                                 </div>
                             </div>
@@ -44,6 +59,7 @@ class Login extends Component {
                     
                 </div>
             </div>
+            </>
         );
     }
 }
