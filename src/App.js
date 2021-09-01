@@ -6,6 +6,7 @@ import Main from './components/Main';
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Error from "./components/Error"
+import Login from './components/Login';
 
  class App extends Component {
 
@@ -19,6 +20,7 @@ import Error from "./components/Error"
             <Header />
                 <Switch>
                     <Route exact path="/" component={Main} />
+                    <Route exact path="/login" component={Login} />
                     <Route component={Error} />
                 </Switch>
             <Footer />

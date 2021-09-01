@@ -1,13 +1,13 @@
 import React from 'react'
-
+import main_image from "../images/school.png"
 
 function Main() {
-    let img = process.env.PUBLIC_URL+"/school.png"
+ 
     return (
        
             <div className="container px-4 px-lg-5 my-5">
                 <div className="row gx-4 gx-lg-5 align-items-center">
-                    <div className="col-md-6"><img className="card-img-top mb-5 mb-md-0" src={img} alt="..." /></div>
+                    <div className="col-md-6"><img className="card-img-top mb-5 mb-md-0" src={main_image} alt="..." /></div>
                     <div className="col-md-6">
                         
                         <h1 className="display-5 fw-bolder">A powerful note manager for You !</h1>
