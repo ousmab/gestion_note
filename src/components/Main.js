@@ -1,6 +1,8 @@
 import React from 'react'
 import main_image from "../images/school.png"
 
+import { Link  } from 'react-router-dom';
+
 function Main() {
  
     return (
@@ -15,7 +17,7 @@ function Main() {
                         <p className="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
                         <div className="d-flex">
                             <button className="btn btn-outline-dark" type="button">
-                               Connectez-vous !</button>
+                               <Link to="/login" className="link_custom">Connectez-vous !</Link> </button>
                         </div>
                     </div>
                 </div>
