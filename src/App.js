@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router,Route, Switch } from "react-router-dom"
+
+
 import Main from './components/Main';
 import Header from './components/Header'
 import Footer from './components/Footer'
-
-
+import Error from "./components/Error"
 
  class App extends Component {
 
@@ -12,13 +14,23 @@ import Footer from './components/Footer'
 
   render() {
     return (
-      <>
-        <Header />
-        <Main />
-        <Footer />
-      </>
+
+      <Router>
+            <Header />
+                <Switch>
+                    <Route exact path="/" component={Main} />
+                    <Route component={Error} />
+                </Switch>
+            <Footer />
+      </Router>
+        
+
     )
   }
 }
 
 export default App;
+
+
+
+     
