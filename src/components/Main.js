@@ -3,8 +3,6 @@ import main_image from "../images/school.png"
 
 import { Link  } from 'react-router-dom';
 import Header from './Header';
-
-
 function Main() {
  
     return (
