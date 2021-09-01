@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AdminHeader from './admin/AdminHeader';
 
 class dashboard extends Component {
 
@@ -8,9 +9,10 @@ class dashboard extends Component {
 
 
         return (
-            <div>
-                je suis a l'admin (dashboard)
-            </div>
+            <>
+                <AdminHeader />
+
+            </>
         );
     }
 }
