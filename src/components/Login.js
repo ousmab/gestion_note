@@ -16,6 +16,8 @@ class Login extends Component {
              btnMsg : "Se connecter"
         }
     }
+
+    
     
 
     onSubmit=(event)=>{
@@ -23,13 +25,12 @@ class Login extends Component {
         this.setState({btnDisabled: true, btnMsg : "Connexion...",errorMessage:null})
         axios.post('/admin/login', this.state.formData)
         .then((resp)=>{
-
-           
+            
             let message = null
-
             switch (resp.data.message) {
                
                 case "SUCCESS":
+                    localStorage.setItem('token', resp.data.token)
                     this.setState({btnDisabled:false,btnMsg : "Se connecter"})
                     this.props.history.push('/dashboard')
                     break;
@@ -44,7 +45,7 @@ class Login extends Component {
 
         })
         .catch(err=>{
-
+            console.log(err)
         })
 
 
@@ -57,10 +58,8 @@ class Login extends Component {
         this.setState({formData: data })
     }
 
-    render() {
-
-        const {username, password} = this.state.formData
-
+    render() {  
+        const {username, password} = this.state.formData  
         return (
             <>
             <Header />
@@ -72,7 +71,7 @@ class Login extends Component {
                             {
                                 this.state.errorMessage != null && (
                                     <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                        Erreur de connexion vérifier vos identifiants (mot de passe et email)
+                                        {this.state.errorMessage}
                                         <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 )

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { Redirect, Route } from "react-router-dom"
 import ConnexionManager from './ConnexionManager'
+import Dashboard from './Dashboard'
 
 
 export default function ProtectedRoute({dontGoWhenConnected,homeWhenConnected:Home, component:Component, ...rest}) {
@@ -24,10 +25,16 @@ export default function ProtectedRoute({dontGoWhenConnected,homeWhenConnected:Ho
 
             render={(props)=>{
                 let status = ConnexionManager.getStatus() 
-                return status ?   <Component {...props} /> : <Redirect  to={{pathname:"/", state: {from : props.location} }} />
+                console.log(status,"ddd")
+            if (status){
+                return dontGoWhenConnected ? <Dashboard {...props} /> : <Component {...props} /> 
+            }else{
+                return <Redirect  to={{pathname:"/", state: {from : props.location} }} />
+            }
+            
             }}
         >
-        </Route>
+        </Route> 
 
     )
 }

@@ -4,9 +4,25 @@ import { GiHamburgerMenu } from "react-icons/gi"
 import {AiOutlineUser, AiFillHome} from "react-icons/ai"
 import Menu from "./Menu"
 import AdminMainContainer from "./AdminMainContainer"
-export default function AdminHeader() {
+import axios from 'axios'
+import { useHistory } from 'react-router'
+export default function AdminHeader(props) {
 
-    
+    let history  = useHistory()
+
+    const onDeconnect=(e)=>{
+        e.preventDefault()
+        axios.get('/admin/logout')
+        .then((resp)=>{
+            if (resp.data.message=='SUCCESS'){
+                if (localStorage.getItem('token')){
+                    localStorage.removeItem('token')
+                    history.push("/")
+                }
+            }
+        })
+        
+    }
 
     return (
         <div className="d-flex" id="wrapper">
@@ -29,7 +45,7 @@ export default function AdminHeader() {
                                         <a className="dropdown-item" href="#!">Action</a>
                                         <a className="dropdown-item" href="#!">Another action</a>
                                         <div className="dropdown-divider"></div>
-                                        <a className="dropdown-item" href="#!">Something else here</a>
+                                        <button onClick={onDeconnect} className="dropdown-item">Se deconnecter</button>
                                     </div>
                                 </li>
                             </ul>

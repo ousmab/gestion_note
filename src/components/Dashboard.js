@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AdminHeader from './admin/AdminHeader';
 
-class dashboard extends Component {
+class Dashboard extends Component {
 
 
     
@@ -17,4 +17,4 @@ class dashboard extends Component {
     }
 }
 
-export default dashboard;
+export default Dashboard;
