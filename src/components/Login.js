@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import login from "../images/login.png"
 import Header from './Header';
@@ -9,18 +10,56 @@ class Login extends Component {
         super(props)
     
         this.state = {
-             
+             formData : {},
+             errorMessage : null,
+             btnDisabled : false,
+             btnMsg : "Se connecter"
         }
     }
     
 
     onSubmit=(event)=>{
         event.preventDefault()
-        this.props.history.push('/dashboard')
+        this.setState({btnDisabled: true, btnMsg : "Connexion...",errorMessage:null})
+        axios.post('/admin/login', this.state.formData)
+        .then((resp)=>{
+
+           
+            let message = null
+
+            switch (resp.data.message) {
+               
+                case "SUCCESS":
+                    this.setState({btnDisabled:false,btnMsg : "Se connecter"})
+                    this.props.history.push('/dashboard')
+                    break;
+
+                default:
+                    message = "vérifiez vos identiants de connexion (login / password)"
+                    this.setState({btnDisabled:false,btnMsg : "Se connecter"})
+                    break;
+               
+            }
+            this.setState({errorMessage : message})
+
+        })
+        .catch(err=>{
+
+        })
+
+
+        /**/
+    }
+
+    onInputChange=e=>{
+        let data = this.state.formData
+        data[e.target.id] =e.target.value
+        this.setState({formData: data })
     }
 
     render() {
-        
+
+        const {username, password} = this.state.formData
 
         return (
             <>
@@ -29,27 +68,48 @@ class Login extends Component {
                 <div className="row gx-4 gx-lg-5 align-items-center">
                     <div className="col-md-6"><img className="card-img-top mb-5 mb-md-0" src={login} alt="..." /></div>
                     <div className="col-md-6">
-                        <form >
-                            <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                                Erreur de connexion vérifier vos identifiants (mot de passe et email)
-                                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
+                        <form onSubmit={this.onSubmit} >
+                            {
+                                this.state.errorMessage != null && (
+                                    <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                                        Erreur de connexion vérifier vos identifiants (mot de passe et email)
+                                        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                )
+                            }
                             <div className="mb-3 row">
-                                <label for="staticEmail" className="col-sm-3 col-form-label">Email</label>
+                                <label htmlFor="staticEmail" className="col-sm-3 col-form-label">Login</label>
                                 <div className="col-sm-9">
-                                    <input type="email" className="form-control" id="email" />
+                                    <input 
+                                        onChange={this.onInputChange}
+                                        value={username}
+                                        type="text"   
+                                        className="form-control" 
+                                        id="username"
+                                         />
                                 </div>
                             </div>
                             <div className="mb-3 row">
-                                <label for="inputPassword" className="col-sm-3 col-form-label">Mot de passe</label>
+                                <label htmlFor="inputPassword" className="col-sm-3 col-form-label">Mot de passe</label>
                                 <div className="col-sm-9">
-                                    <input type="password" className="form-control" id="password" />
+                                    <input 
+                                        onChange={this.onInputChange} 
+                                        value={password}
+                                        type="password" 
+                                        className="form-control" 
+                                        id="password" />
                                 </div>
                             </div>
 
                             <div className="mb-3 row">
                                 <div className="offset-3 col-sm-9">
-                                    <input type="submit" value="Connexion" onClick={this.onSubmit} className="btn btn-primary" />
+                                    <input 
+                                        onClick={this.onSubmit} 
+                                        disabled ={this.state.btnDisabled}
+                                        className="btn btn-primary" 
+                                        type="submit" 
+                                        value={this.state.btnMsg} 
+                                        />
 
                                 </div>
                             </div>
