@@ -18,10 +18,11 @@ import ProtectedRoute from './components/ProtectedRoute';
 
       <Router>
             <Switch>
-                <Route  exact path="/" component={Main}  />
+                
                 <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-                <Route  path="/login" component={Login}  />
-                <Route component={Error}    />
+                <ProtectedRoute  exact path="/" component={Main} dontGoWhenConnected={true} />
+                <ProtectedRoute  path="/login" component={Login} dontGoWhenConnected={true} />
+                <ProtectedRoute component={Error} />
             </Switch>
             <Footer />
       </Router>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Redirect, Route } from "react-router-dom"
 import ConnexionManager from './ConnexionManager'
@@ -15,26 +15,31 @@ export default function ProtectedRoute({dontGoWhenConnected,homeWhenConnected:Ho
         component           : cest le composant sur lequel on doit rediriger
         ...rest             : c'est sont les autres props (path, exact etc..)
     */}
-
-    
-
+    let status = ConnexionManager.getStatus()
+   
     return (
       
-        <Route 
-            {...rest}
+        ! dontGoWhenConnected ? 
+        (
+            <Route 
+                {...rest}
+                render={(props)=>{
+                        return status ? <Component {...props} /> : <Redirect  to={{pathname:"/", state: {from : props.location} }} /> 
+                    }
+                }
+            />
+        ) : 
+        (
+            <Route 
+                {...rest}
+                render={(props)=>{
+                    return status ? <Dashboard {...props} /> : <Component {...props} />
+                    } 
+                }
+            />
+        )
 
-            render={(props)=>{
-                let status = ConnexionManager.getStatus() 
-                console.log(status,"ddd")
-            if (status){
-                return dontGoWhenConnected ? <Dashboard {...props} /> : <Component {...props} /> 
-            }else{
-                return <Redirect  to={{pathname:"/", state: {from : props.location} }} />
-            }
-            
-            }}
-        >
-        </Route> 
-
+       
     )
 }
+
