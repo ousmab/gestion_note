@@ -17,13 +17,12 @@ import ProtectedRoute from './components/ProtectedRoute';
     return (
 
       <Router>
-          
-                <Switch>
-                    <Route  exact path="/" component={Main}  />
-                    <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-                    <Route exact path="/login" component={Login}  />
-                    <Route component={Error}    />
-                </Switch>
+            <Switch>
+                <Route  exact path="/" component={Main}  />
+                <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+                <Route  path="/login" component={Login}  />
+                <Route component={Error}    />
+            </Switch>
             <Footer />
       </Router>
         
