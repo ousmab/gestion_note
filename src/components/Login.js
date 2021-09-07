@@ -12,7 +12,7 @@ class Login extends Component {
         this.state = {
              formData : {},
              errorMessage : null,
-             btnDisabled : false,
+             btnDisabled : true,
              btnMsg : "Se connecter"
         }
     }
@@ -54,9 +54,20 @@ class Login extends Component {
     }
 
     onInputChange=e=>{
+
+        
+
+        
+
         let data = this.state.formData
         data[e.target.id] =e.target.value
-        this.setState({formData: data})
+        
+        let btnStatus = true
+        const {password, username} = this.state.formData
+        if (password  || username ){
+            btnStatus = false
+        }
+        this.setState({formData: data, btnDisabled : btnStatus})
     }
 
     render() {  
