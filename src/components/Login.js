@@ -19,6 +19,7 @@ class Login extends Component {
 
     
     
+    
 
     onSubmit=(event)=>{
         event.preventDefault()
@@ -31,18 +32,18 @@ class Login extends Component {
                
                 case "SUCCESS":
                     localStorage.setItem('token', resp.data.token)
-                    this.setState({btnDisabled:false,btnMsg : "Se connecter"})
+                    //this.setState({btnDisabled:false,btnMsg : "Se connecter"})
                     this.props.history.push('/dashboard')
                     break;
 
                 default:
                     message = "vérifiez vos identiants de connexion (login / password)"
-                    this.setState({btnDisabled:false,btnMsg : "Se connecter"})
+                    this.setState({btnDisabled:false,btnMsg : "Se connecter",errorMessage : message})
                     break;
                
             }
-            this.setState({errorMessage : message})
-
+         
+            
         })
         .catch(err=>{
             console.log(err)
@@ -55,7 +56,7 @@ class Login extends Component {
     onInputChange=e=>{
         let data = this.state.formData
         data[e.target.id] =e.target.value
-        this.setState({formData: data })
+        this.setState({formData: data})
     }
 
     render() {  
@@ -81,7 +82,7 @@ class Login extends Component {
                                 <div className="col-sm-9">
                                     <input 
                                         onChange={this.onInputChange}
-                                        value={username}
+                                        value={username  }
                                         type="text"   
                                         className="form-control" 
                                         id="username"
@@ -93,7 +94,7 @@ class Login extends Component {
                                 <div className="col-sm-9">
                                     <input 
                                         onChange={this.onInputChange} 
-                                        value={password}
+                                        value={password }
                                         type="password" 
                                         className="form-control" 
                                         id="password" />
