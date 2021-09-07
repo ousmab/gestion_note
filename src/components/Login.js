@@ -82,7 +82,7 @@ class Login extends Component {
                                 <div className="col-sm-9">
                                     <input 
                                         onChange={this.onInputChange}
-                                        value={username  }
+                                        value={username ? username : "" }
                                         type="text"   
                                         className="form-control" 
                                         id="username"
@@ -94,7 +94,7 @@ class Login extends Component {
                                 <div className="col-sm-9">
                                     <input 
                                         onChange={this.onInputChange} 
-                                        value={password }
+                                        value={password ? password : ""}
                                         type="password" 
                                         className="form-control" 
                                         id="password" />
