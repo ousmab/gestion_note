@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import AuthContext from '../context/AuthContext';
 import login from "../images/login.png"
 import Header from './Header';
 
@@ -8,17 +9,19 @@ class Login extends Component {
 
     constructor(props) {
         super(props)
-    
+       
         this.state = {
              formData : {},
              errorMessage : null,
              btnDisabled : true,
              btnMsg : "Se connecter"
         }
+
+        
     }
 
     
-    
+   
     
 
     onSubmit=(event)=>{
@@ -31,8 +34,8 @@ class Login extends Component {
             switch (resp.data.message) {
                
                 case "SUCCESS":
-                    localStorage.setItem('token', resp.data.token)
-                    //this.setState({btnDisabled:false,btnMsg : "Se connecter"})
+                    const [user, setUser] = this.context
+                    setUser(resp.data.user)
                     this.props.history.push('/dashboard')
                     break;
 
@@ -55,10 +58,6 @@ class Login extends Component {
 
     onInputChange=e=>{
 
-        
-
-        
-
         let data = this.state.formData
         data[e.target.id] =e.target.value
         
@@ -71,6 +70,10 @@ class Login extends Component {
     }
 
     render() {  
+        
+        
+        
+
         const {username, password} = this.state.formData  
         return (
             <>
@@ -135,4 +138,5 @@ class Login extends Component {
     }
 }
 
+Login.contextType = AuthContext
 export default Login;

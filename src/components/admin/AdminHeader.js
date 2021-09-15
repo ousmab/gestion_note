@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import "./admin.css"
 import { GiHamburgerMenu } from "react-icons/gi"
 import {AiOutlineUser, AiFillHome} from "react-icons/ai"
@@ -6,19 +6,22 @@ import Menu from "./Menu"
 import AdminMainContainer from "./AdminMainContainer"
 import axios from 'axios'
 import { useHistory } from 'react-router'
-export default function AdminHeader(props) {
+import AuthContext from '../../context/AuthContext'
+
+
+export default function AdminHeader() {
 
     let history  = useHistory()
+    let [user, setUser] = useContext(AuthContext)
 
     const onDeconnect=(e)=>{
         e.preventDefault()
         axios.get('/admin/logout')
         .then((resp)=>{
             if (resp.data.message=='SUCCESS'){
-                if (localStorage.getItem('token')){
-                    localStorage.removeItem('token')
-                    history.push("/")
-                }
+                
+                setUser(null)
+                history.push("/")
             }
         })
         
